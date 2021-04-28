@@ -1,0 +1,17 @@
+package:
+  name: cc3dext
+  version: 0.0.0
+
+about:
+  home: https://compucell3d.org
+  license: MIT
+  license_file:
+    - LICENSE
+  summary: Extensions, plugins, and 3rd party tools that integrate with CompuCell3D
+
+extra:
+  maintainers: T.J. Sego, Maciek Swat
+
+requirements:
+  run:
+    - cc3dext_maboss
