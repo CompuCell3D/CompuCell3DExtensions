@@ -1,0 +1,47 @@
+package:
+  name: cc3dext_maboss
+  version: 0.0.0
+
+about:
+  home: https://compucell3d.org
+  license: MIT
+  license_file:
+    - ../../LICENSE
+    - ../../cc3dext/MaBoSS/cpp/LICENSE
+  summary: MaBoSS integration in CompuCell3D
+
+extra:
+  maintainers: T.J. Sego, Maciek Swat
+
+source:
+  url: https://github.com/CompuCell3D/CompuCell3DExtensions/archive/feature/maboss.tar.gz
+
+build:
+  number: 0
+
+requirements:
+  host:
+    - python >=3.7.10
+    - m2w64-gcc-libs-core # [win]
+    - m2w64-libwinpthread-git # [win]
+    - m2w64-dlfcn # [win]
+  
+  build:
+    - cmake >=3.18.0
+    - swig >3,<4
+    - bison # [unix]
+    - flex # [unix]
+    - m2-bison # [win]
+    - m2-flex # [win]
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  
+  run:
+    - python >=3.7.10
+    - m2w64-gcc-libs-core # [win]
+    - m2w64-libwinpthread-git # [win]
+    - m2w64-dlfcn # [win]
+
+test:
+  imports:
+    - cc3dext.MaBoSSCC3DPy
