@@ -151,6 +151,7 @@ namespace MaBoSSCC3D {
         void setNodeState(NodeState state) { return node->setNodeState(*networkState, state); }
         bool computeNodeState(NodeState& state) const { return node->computeNodeState(*networkState, state); }
         std::string toString() const { return node->toString(); }
+        void mutate(double value) { node->mutate(value); }
 
         // SWIG support
         
