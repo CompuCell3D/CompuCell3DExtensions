@@ -9,11 +9,15 @@
 
 %}
 
+%include "stl.i"
+%include "typemaps.i"
+%include "cpointer.i"
+
 // C++ std::string handling
 %include "std_string.i"
 
-// C++ std::unordered_map handling
-%include "std_unordered_map.i"
+// C++ std::map handling
+%include "std_map.i"
 
 // C++ std::vector handling
 %include "std_vector.i"
@@ -158,6 +162,13 @@ public:
     %}
 }
 %enddef
+
+// Basic types
+
+%template(Map_Id_Eng) std::map<long, MaBoSSCC3D::CC3DMaBoSSEngine*>;
+%template(Map_Name_Eng) std::map<std::string, MaBoSSCC3D::CC3DMaBoSSEngine*>;
+%template(Map_Id_Map_Name_Eng) std::map<long, std::map<std::string, MaBoSSCC3D::CC3DMaBoSSEngine*> >;
+%template(Vector_Eng) std::vector<MaBoSSCC3D::CC3DMaBoSSEngine*>;
 
 %include "BooleanNetwork.h"
 %include "RandomGenerator.h"
