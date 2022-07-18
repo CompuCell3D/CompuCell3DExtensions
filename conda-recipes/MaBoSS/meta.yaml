@@ -1,6 +1,6 @@
 package:
   name: cc3dext_maboss
-  version: 0.1.0
+  version: 0.2.0
 
 about:
   home: https://compucell3d.org
@@ -14,19 +14,21 @@ extra:
   maintainers: T.J. Sego, Maciek Swat
 
 source:
-  url: https://github.com/CompuCell3D/CompuCell3DExtensions/archive/feature/maboss.tar.gz
+#  url: https://github.com/CompuCell3D/CompuCell3DExtensions/archive/feature/maboss.tar.gz
+  path: ../
 
 build:
   number: 0
 
 requirements:
   host:
-    - python >=3.7.10
+    - python {{ python }}
     - m2w64-gcc-libs-core # [win]
     - m2w64-libwinpthread-git # [win]
     - m2w64-dlfcn # [win]
   
   build:
+    - python {{ python }}
     - cmake >=3.18.0
     - swig >3,<4
     - bison # [unix]
@@ -37,7 +39,7 @@ requirements:
     - {{ compiler('cxx') }}
   
   run:
-    - python >=3.7.10
+    - python {{ python }}
     - m2w64-gcc-libs-core # [win]
     - m2w64-libwinpthread-git # [win]
     - m2w64-dlfcn # [win]
