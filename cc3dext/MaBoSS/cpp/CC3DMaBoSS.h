@@ -11,6 +11,7 @@ Bloomington, IN, U.S.A.
 #include <algorithm>
 #include <tuple>
 #include <vector>
+#include <map>
 
 #include "engine/src/maboss-config.h"
 #include "BooleanNetwork.h"
@@ -150,6 +151,7 @@ namespace MaBoSSCC3D {
         void setNodeState(NodeState state) { return node->setNodeState(*networkState, state); }
         bool computeNodeState(NodeState& state) const { return node->computeNodeState(*networkState, state); }
         std::string toString() const { return node->toString(); }
+        void mutate(double value) { node->mutate(value); }
 
         // SWIG support
         
@@ -212,6 +214,40 @@ namespace MaBoSSCC3D {
         void __setitem__(const std::string &key, NodeState value) { network->getNode(key)->setNodeState(networkState, value); }
         #endif // SWIGPYTHON
         
+
+    };
+
+    typedef std::map<long, CC3DMaBoSSEngine*> EngineIdContainer_t;
+    typedef std::map<std::string, CC3DMaBoSSEngine*> EngineNameContainer_t;
+    typedef std::map<long, EngineNameContainer_t> EngineCellContainer_t;
+    typedef std::vector<CC3DMaBoSSEngine*> EngineContainer_t;
+
+    class CC3DMABOSS_EXPORT CC3DMaBoSSEngineContainer {
+        
+        EngineContainer_t storedEngines;
+        EngineCellContainer_t enginesByCell;
+
+    public:
+
+        void addEngine(CC3DMaBoSSEngine *engine, const long &cellId, const std::string &engineName);
+        void remEngine(const long &cellId, const std::string &engineName);
+        void remCell(const long &cellId);
+        void step(const double &_stepSize = -1.);
+        EngineNameContainer_t getEnginesByCell(const long &cellId) {
+            auto itr = enginesByCell.find(cellId);
+            if(itr == enginesByCell.end()) 
+                return {};
+            return (*itr).second;
+        }
+        EngineIdContainer_t getEnginesByName(const std::string &engName) {
+            EngineIdContainer_t result;
+            for(auto &itrId : enginesByCell) {
+                auto itrName = itrId.second.find(engName);
+                if(itrName != itrId.second.end()) 
+                    result[itrId.first] = (*itrName).second;
+            }
+            return result;
+        }
 
     };
 

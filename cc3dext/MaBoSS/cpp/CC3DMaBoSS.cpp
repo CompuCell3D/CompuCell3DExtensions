@@ -1,24 +1,3 @@
-/*************************************************************************
-*    CompuCell - A software framework for multimodel simulations of     *
-* biocomplexity problems Copyright (C) 2003 University of Notre Dame,   *
-*                             Indiana                                   *
-*                                                                       *
-* This program is free software; IF YOU AGREE TO CITE USE OF CompuCell  *
-*  IN ALL RELATED RESEARCH PUBLICATIONS according to the terms of the   *
-*  CompuCell GNU General Public License RIDER you can redistribute it   *
-* and/or modify it under the terms of the GNU General Public License as *
-*  published by the Free Software Foundation; either version 2 of the   *
-*         License, or (at your option) any later version.               *
-*                                                                       *
-* This program is distributed in the hope that it will be useful, but   *
-*      WITHOUT ANY WARRANTY; without even the implied warranty of       *
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU    *
-*             General Public License for more details.                  *
-*                                                                       *
-*  You should have received a copy of the GNU General Public License    *
-*     along with this program; if not, write to the Free Software       *
-*      Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.        *
-*************************************************************************/
 #include <chrono>
 #include <cstdio>
 #include <stdlib.h>
@@ -273,4 +252,46 @@ NetworkState* CC3DMaBoSSEngine::getNetworkState() {
 CC3DMaBoSSNode CC3DMaBoSSEngine::getNode(const std::string& label) 
 {
     return CC3DMaBoSSNode(network->getNode(label), network, &networkState, &networkStateInit, runConfig->getRandomGenerator()->getRandomGenerator());
+}
+
+void CC3DMaBoSSEngineContainer::addEngine(CC3DMaBoSSEngine *engine, const long &cellId, const std::string &engineName) {
+    storedEngines.push_back(engine);
+    enginesByCell[cellId][engineName] = engine;
+}
+
+void CC3DMaBoSSEngineContainer::remEngine(const long &cellId, const std::string &engineName) {
+    auto itrId = enginesByCell.find(cellId);
+    if(itrId != enginesByCell.end()) {
+        auto itrName = (*itrId).second.find(engineName);
+        if(itrName != (*itrId).second.end()) {
+            auto itrEng = std::find(storedEngines.begin(), storedEngines.end(), (*itrName).second);
+            if(itrEng != storedEngines.end()) 
+                storedEngines.erase(itrEng);
+            
+            (*itrId).second.erase(itrName);
+        }
+    }
+}
+
+void CC3DMaBoSSEngineContainer::remCell(const long &cellId) {
+    auto itrId = enginesByCell.find(cellId);
+    if(itrId != enginesByCell.end()) {
+        auto cellEngs = (*itrId).second;
+        std::vector<std::string> engNames;
+        for(auto &itrEng : cellEngs) 
+            engNames.push_back(itrEng.first);
+        for(auto &eName : engNames) {
+            auto cellEngItr = cellEngs.find(eName);
+            auto storedEngItr = std::find(storedEngines.begin(), storedEngines.end(), (*cellEngItr).second);
+            if(storedEngItr != storedEngines.end()) 
+                storedEngines.erase(storedEngItr);
+            cellEngs.erase(cellEngItr);
+        }
+    }
+}
+
+void CC3DMaBoSSEngineContainer::step(const double &_stepSize) {
+    for(auto &eng : storedEngines) {
+        eng->step(_stepSize);
+    }
 }
