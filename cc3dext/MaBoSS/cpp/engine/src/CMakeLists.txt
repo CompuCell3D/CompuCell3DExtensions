@@ -122,7 +122,11 @@ set(target_name cc3deMaBoSSeng)
 add_library(${target_name} SHARED ${MaBoSS_SRCS})
 target_link_libraries(${target_name} ${MaBoSS_LIBS_IMPORTED})
 if(MINGW)
-    target_include_directories(${target_name} PUBLIC ../extern)
+    target_include_directories(${target_name} PUBLIC
+        ../extern
+        "${CMAKE_FIND_ROOT_PATH}/mingw-w64/include"
+        "${CMAKE_FIND_ROOT_PATH}/mingw-w64/x86_64-w64-mingw32/include"
+    )
 endif()
 target_compile_options(${target_name} PRIVATE -DMAXNODES=${MABOSS_MAXNODES})
 
