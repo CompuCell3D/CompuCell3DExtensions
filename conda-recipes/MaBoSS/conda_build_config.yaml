@@ -1,5 +1,6 @@
 CONDA_BUILD_SYSROOT:
-  - /opt/MacOSX10.10.sdk # [osx]
+#  - /opt/MacOSX10.10.sdk # [osx]
+  - /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk # [osx]
 
 c_compiler:
   - gcc # [linux]
@@ -10,5 +11,5 @@ cxx_compiler:
   - clangxx # [osx]
   - m2w64-toolchain # [win]
 
-python:
-  - 3.7
+#python:
+#  - 3.7
