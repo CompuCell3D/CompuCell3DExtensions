@@ -6,7 +6,11 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL Darwin)
     set(PYTHON_LIBRARY_TO_LINK )
     set(undefined_link_flags "-undefined dynamic_lookup")
 else()
-    set(PYTHON_LIBRARY_TO_LINK ${Python_LIBRARY_RELEASE})
+    if(MINGW)
+        set(PYTHON_LIBRARY_TO_LINK "${Python3_INCLUDE_DIRS}/../python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}$ENV{SHLIB_EXT}")
+    else()
+        set(PYTHON_LIBRARY_TO_LINK ${Python3_LIBRARIES})
+    endif()
     set(undefined_link_flags " ")
 
 endif()
@@ -19,7 +23,7 @@ SET(MaBoSSCC3D_LIBS
 set_source_files_properties(MaBoSSCC3D.i PROPERTIES CPLUSPLUS ON)
 SWIG_ADD_LIBRARY(MaBoSSCC3DPy LANGUAGE python SOURCES MaBoSSCC3D.i)
 target_include_directories(MaBoSSCC3DPy PUBLIC
-    ${Python_INCLUDE_DIRS} 
+    ${Python3_INCLUDE_DIRS}
     $<BUILD_INTERFACE:${EXT_ROOT_DIR}/cpp>
     $<BUILD_INTERFACE:${EXT_ROOT_DIR}/cpp/engine/src>
     $<INSTALL_INTERFACE:${EXT_INSTALL_INCLUDEDIR}>

@@ -15,7 +15,7 @@ if(NOT MABOSS_MAXNODES)
     set(MABOSS_MAXNODES 64)
 endif()
 
-find_package(Python COMPONENTS Interpreter Development REQUIRED)
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 
 if(MINGW)
     set(EXT_INSTALL_LIBDIR "${CMAKE_INSTALL_PREFIX}/bin")
