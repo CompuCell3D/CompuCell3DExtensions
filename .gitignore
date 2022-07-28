@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/cc3dext/MaBoSS/cpp/engine/src/lex.CTBNDL.cc
+/cc3dext/MaBoSS/cpp/engine/src/lex.RC.cc
+/cc3dext/MaBoSS/cpp/engine/src/BooleanGrammar.tab.c
+/cc3dext/MaBoSS/cpp/engine/src/BooleanGrammar.cc
+/cc3dext/MaBoSS/cpp/engine/src/RunConfigGrammar.cc
+/cc3dext/MaBoSS/cpp/engine/src/RunConfigGrammar.tab.c
