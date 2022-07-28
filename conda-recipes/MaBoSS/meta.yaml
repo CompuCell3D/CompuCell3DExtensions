@@ -1,3 +1,6 @@
+# to build run:
+# cd CompuCell3DExtensions/conda-recipes/MaBoSS/
+# conda build -c conda-forge python=3.7 .
 package:
   name: cc3dext_maboss
   version: 0.2.0
@@ -15,7 +18,7 @@ extra:
 
 source:
 #  url: https://github.com/CompuCell3D/CompuCell3DExtensions/archive/feature/maboss.tar.gz
-  path: ../
+  path: ../../
 
 build:
   number: 0
