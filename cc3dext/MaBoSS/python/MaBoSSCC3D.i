@@ -137,9 +137,7 @@ public:
 %define PROPERTYEXTENSORPY(className, propName, propGet, propSet)
 %extend className {
     %pythoncode %{
-        __swig_getmethods__["propName"] = propGet
-        __swig_setmethods__["propName"] = propSet
-        if _newclass: propName = property(propGet, propSet)
+        propName = property(propGet, propSet)
     %}
 }
 %enddef
@@ -147,9 +145,7 @@ public:
 %define READONLYPROPERTYEXTENSORPY(className, propName, propGet)
 %extend className {
     %pythoncode %{
-        __swig_getmethods__["propName"] = propGet
-        __swig_setmethods__["propName"] = readonly_property_setter("propName")
-        if _newclass: propName = property(propGet, readonly_property_setter("propName"))
+        propName = property(propGet, readonly_property_setter("propName"))
     %}
 }
 %enddef
