@@ -1,6 +1,7 @@
 CONDA_BUILD_SYSROOT:
 #  - /opt/MacOSX10.10.sdk # [osx]
-  - /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk # [osx]
+#  - /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk # [osx]
+  - /opt/MacOSX11.3.sdk # [osx]
 
 c_compiler:
   - gcc # [linux]
