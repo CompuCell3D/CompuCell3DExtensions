@@ -21,7 +21,7 @@ source:
   path: ../../
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   host:
@@ -32,8 +32,10 @@ requirements:
   
   build:
     - python {{ python }}
-    - cmake >=3.18.0
-    - swig >4
+#    - cmake >=3.18.0
+    - cmake =3.25.2
+#    - swig >4
+    - swig =4.1.1
     - bison # [unix]
     - flex # [unix]
     - m2-bison # [win]
