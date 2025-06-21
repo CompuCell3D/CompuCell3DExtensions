@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <cstdint>
 #include <string.h>
 #include <sstream>
 #include <iostream>
